@@ -141,6 +141,29 @@
                 "packages": {},
                 "requests": {}
               }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// Generate random number for unique email\r",
+                  "var randomNum = Math.floor(Math.random() * 10000);\r",
+                  "var randomEmail = \"testuser\" + randomNum + \"@gmail.com\";\r",
+                  "\r",
+                  "// Save to environment variable\r",
+                  "pm.environment.set(\"randomEmail\", randomEmail);\r",
+                  "\r",
+                  "console.log(\"Generated email: \" + randomEmail);\r",
+                  "\r",
+                  "// Add current timestamp\r",
+                  "var timestamp = new Date().toISOString();\r",
+                  "pm.environment.set(\"timestamp\", timestamp);\r",
+                  "console.log(\"Test running at: \" + timestamp);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
             }
           ],
           "request": {
@@ -148,7 +171,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\": \"Shilpa Soni\",\r\n  \"email\": \"shilpasoni4991@gmail.com\",\r\n  \"phone\": \"8157006718\",\r\n  \"website\": \"github.com/shilpa-soni-qa\"\r\n}",
+              "raw": "{\r\n  \"name\": \"Shilpa Soni\",\r\n  \"email\": \"{{randomEmail}}\",\r\n  \"phone\": \"8157006718\",\r\n  \"website\": \"github.com/shilpa-soni-qa\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
