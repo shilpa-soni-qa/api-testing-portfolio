@@ -57,9 +57,47 @@
         },
         {
           "name": "Get Single User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function(){\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID is 1\", function(){\r",
+                  "    var jsonData=pm.response.json();\r",
+                  "    pm.expect(jsonData.id).to.eql(1);\r",
+                  "});\r",
+                  "pm.test(\"User Name is Leanne Graham\", function(){\r",
+                  "    var jsonData=pm.response.json();\r",
+                  "    pm.expect(jsonData.name).to.eql(\"Leanne Graham\");\r",
+                  "})\r",
+                  "pm.test(\"User has email\",function(){\r",
+                  "    var jsonData=pm.response.json();\r",
+                  "    pm.expect(jsonData.email).to.be.ok;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
           },
           "response": []
         },
@@ -82,7 +120,13 @@
                   "pm.test(\"Response has ID\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    pm.expect(jsonData.id).to.be.ok;\r",
-                  "});"
+                  "});\r",
+                  "// Save the new user ID to environment variable\r",
+                  "var jsonData=pm.response.json();\r",
+                  "pm.environment.set(\"newUserId\",jsonData.id);\r",
+                  "console.log(\"Saved user ID:\"+ jsonData.id);\r",
+                  "\r",
+                  ""
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -205,6 +249,45 @@
               "path": [
                 "users",
                 "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Created User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404 for fake API\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"newUserId was saved correctly\", function () {\r",
+                  "    var savedId = pm.environment.get(\"newUserId\");\r",
+                  "    pm.expect(savedId).to.be.ok;\r",
+                  "    console.log(\"Chained ID value: \" + savedId);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{newUserId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "{{newUserId}}"
               ]
             }
           },
