@@ -89,9 +89,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/users/1",
+              "raw": "https://jsonplaceholder.typicode.com/users/1",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "jsonplaceholder",
+                "typicode",
+                "com"
               ],
               "path": [
                 "users",
@@ -281,9 +284,12 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/users/{{newUserId}}",
+              "raw": "https://jsonplaceholder.typicode.com/users/{{newUserId}}",
+              "protocol": "https",
               "host": [
-                "{{baseUrl}}"
+                "jsonplaceholder",
+                "typicode",
+                "com"
               ],
               "path": [
                 "users",
