@@ -35,7 +35,7 @@ REST API Testing Portfolio using Postman and JSONPlaceholder API.
 
 ## ✅ Test Results
 - Total Requests: 13
-- Total Test Cases: 34
+- Total Test Cases: 39
 - All Tests Passing: ✅
 
 ## 📋 What is Tested
